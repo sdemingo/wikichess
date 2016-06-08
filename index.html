@@ -44,8 +44,13 @@
 	</div>
 
 	<div class="form-group">
-	  <label for="exampleTextarea">PGN File:</label>
-	  <textarea class="form-control" rows="7"></textarea>
+	  <label for="pgnText">PGN File:</label>
+	  <textarea id="pgnText" class="form-control" rows="7"></textarea>
+	</div>
+	<div class="form-group">
+	  <button  class="btn pull-right" id="sendButton">
+	    Enviar
+	  </button>
 	</div>
       </div>
     </div>
@@ -61,6 +66,10 @@
      document.getElementById("prevButton").addEventListener("click",chessgame.prev)
      document.getElementById("nextButton").addEventListener("click",chessgame.next)
      document.getElementById("resetButton").addEventListener("click",chessgame.reset)
+     document.getElementById("sendButton").addEventListener("click",function(){
+       var pgn = document.getElementById("pgnText")
+       chessgame.load(pgn.value)
+     })
 
     </script>
   </body>
