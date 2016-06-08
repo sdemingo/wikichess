@@ -39,17 +39,26 @@ var chessgame = (function(){
 	history=game.history({verbose:"true"})
     }
 
-
-    var prev = function(){
-	game.undo()
-	cur--
+    var reset = function(){
+	game.reset()
+	cur=0
 	board.position(game.fen());
     }
 
+    var prev = function(){
+	if (cur > 0){
+	    game.undo()
+	    cur--
+	    board.position(game.fen());
+	}
+    }
+
     var next = function(){
-	game.move(history[cur].san);
-	board.position(game.fen());
-	cur++;
+	if (cur < history.length - 1){
+	    game.move(history[cur].san);
+	    board.position(game.fen());
+	    cur++;
+	}
     }
 
     var init = function(){
@@ -59,15 +68,15 @@ var chessgame = (function(){
 	game.load_pgn(pgnData.join('\n'));
 	history=game.history({verbose:"true"})
 
-	game.reset()
-	cur=0
+	reset()
     }
 
     return{
 	init:init,
 	loadPGN:loadPGN,
 	next:next,
-	prev:prev
+	prev:prev,
+	reset:reset
     }
 })()
 
