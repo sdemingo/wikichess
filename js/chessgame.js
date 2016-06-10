@@ -49,21 +49,24 @@ var chessgame = (function(){
 	var headersRe=/\[(.*) \"(.*)\"\]/g
 	var h = pgn.replace(headersRe,"\"$1\":\"$2\"")
 	var hd = h.match(/\".*\":\".*\"/g)
-	headers=JSON.parse("{"+hd.join(",")+"}")
+	if (hd){
+	    headers=JSON.parse("{"+hd.join(",")+"}")
+	}
     }
 
     var loadPGN = function(pgn){
 
-	extractHeaders(pgn)
+	var headersRe=/\[.*\]/g
+	pgn = pgn.replace(headersRe,"")
 
-	var headers=/\[.*\]/g
-	pgn = pgn.replace(headers,"")
+	alert(pgn)
 
-	var ok = game.load_pgn(pgn);
+	var ok = game.load_pgn(pgn,{sloppy: true});
 	if (!ok){
 	    alert("error pgn")
 	    return
 	}
+	headers=game.header()
 	history=game.history({verbose:"true"})
 
 	reset()
@@ -84,7 +87,7 @@ var chessgame = (function(){
     }
 
     var next = function(){
-	if (cur < history.length - 1){
+	if (cur < history.length){
 	    game.move(history[cur].san);
 	    board.position(game.fen());
 	    cur++;
