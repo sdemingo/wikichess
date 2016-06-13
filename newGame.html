@@ -27,41 +27,23 @@
 	<input type="text" class="form-control" name="gameName" id="gameName" placeholder="Game Title (Ej: Bob Vs Computer)">
       </div>
       
-      <!-- board  -->
-      <div class="row col-md-7">
-	<div class="boardpanel" id="board1"></div>
-      </div>
-
-      <!-- controls  -->
-      <div class="boardpanel row col-md-5">
-
-	<div class="form-group">
-	  <label for="pgnText">PGN File:</label>
-	  <textarea id="pgnText" class="form-control" rows="7"></textarea>
-	</div>
-
-
-	<div class="form-group">
-	  <button class="btn" id="prevButton">
-	    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-	  </button>
-	  <button class="btn" id="resetButton">
-	    <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>
-	  </button>
-	  <button  class="btn" id="nextButton">
-	    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-	  </button>
-	  <button  class="btn pull-right" id="sendButton">
+      <div class="form-group col-md-8">
+	<label for="pgnText">PGN File:</label>
+	<textarea id="pgnText" class="form-control" rows="10"></textarea>
+	  <button  class="btn btn-default pull-right" id="sendButton">
 	    Enviar
 	  </button>
+      </div>
+      
+      <div class="form-group col-md-4">
+	<label >Headers:</label>
+	<div class="panel panel-default pgn-headers">
 	</div>
       </div>
     </div>
 
 
     <script src="js/jquery-2.2.4.min.js"></script>
-    <script type="text/javascript" src="js/chess.min.js"></script>
-    <script type="text/javascript" src="js/chessboard-0.3.0.min.js"></script>
     <script type="text/javascript" src="js/chessgame.js"></script>
     <script type="text/javascript">
      chessgame.init()
