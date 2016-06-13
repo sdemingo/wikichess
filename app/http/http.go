@@ -21,7 +21,7 @@ func RedirectToLogin(w http.ResponseWriter, r *http.Request) {
 	srv.RedirectUserLogin(w, r)
 }
 
-var baseTmpl = "static/html/index.html"
+var baseTmpl = "static/html/start.html"
 var helpTmpl = "static/html/help.html"
 var adminTmpl = "static/html/admin.html"
 
@@ -30,9 +30,9 @@ func Help(wr srv.WrapperRequest, tc map[string]interface{}) (string, error) {
 }
 
 func Welcome(wr srv.WrapperRequest, tc map[string]interface{}) (string, error) {
-	if wr.NU.GetRole() < core.ROLE_GUEST {
-		return "", errors.New(core.ERR_NOTOPERATIONALLOWED)
-	}
+	// if wr.NU.GetRole() < core.ROLE_GUEST {
+	// 	return "", errors.New(core.ERR_NOTOPERATIONALLOWED)
+	// }
 	return baseTmpl, nil
 }
 

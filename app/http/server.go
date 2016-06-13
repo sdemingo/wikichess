@@ -120,13 +120,7 @@ func getCurrentUser(wr *srv.WrapperRequest) error {
 	err := q.GetMany(&nus)
 
 	if len(nus) <= 0 {
-		// If the session users not in the datastore we use de admin
-		// users of the app
-		if wr.IsAdminRequest() {
-			nu = GetDefaultUser(u.Email)
-		} else {
-			return errors.New("No user id found")
-		}
+		nu = GetDefaultUser(u.Email)
 	} else {
 		nu = nus[0]
 	}
@@ -139,8 +133,8 @@ func GetDefaultUser(email string) core.AppUser {
 	n := new(users.NUser)
 	n.Id = -1
 	n.Mail = email
-	n.Name = "Administrador"
-	n.Role = core.ROLE_ADMIN
+	n.Name = "Invitado"
+	n.Role = core.ROLE_GUEST
 
 	return n
 }
