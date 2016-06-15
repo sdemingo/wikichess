@@ -30,9 +30,7 @@ func Help(wr srv.WrapperRequest, tc map[string]interface{}) (string, error) {
 }
 
 func Welcome(wr srv.WrapperRequest, tc map[string]interface{}) (string, error) {
-	// if wr.NU.GetRole() < core.ROLE_GUEST {
-	// 	return "", errors.New(core.ERR_NOTOPERATIONALLOWED)
-	// }
+	// HTML Response
 	return baseTmpl, nil
 }
 

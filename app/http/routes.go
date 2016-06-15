@@ -1,6 +1,9 @@
 package http
 
-import "net/http"
+import (
+	"net/http"
+	"text/template"
+)
 
 var routes map[string]bool
 
@@ -17,8 +20,11 @@ func init() {
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		routes["/"] = true
-		AppHandler(w, r, Welcome)
+		w.Header().Set("Content-Type", "text/html;charset=utf-8")
+		tmpl := template.Must(template.ParseFiles(baseTmpl))
+		tmpl.Execute(w, nil)
 	})
+
 	http.HandleFunc("/help", func(w http.ResponseWriter, r *http.Request) {
 		routes["/help"] = true
 		AppHandler(w, r, Help)
