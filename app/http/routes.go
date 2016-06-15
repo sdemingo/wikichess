@@ -1,6 +1,7 @@
 package http
 
 import (
+	"model/games"
 	"net/http"
 	"text/template"
 )
@@ -13,9 +14,10 @@ func init() {
 	routes = make(map[string]bool)
 
 	directRoutes = map[string]bool{
-		"/":       true,
-		"/logout": true,
-		"/admin":  true,
+		"/":          true,
+		"/logout":    true,
+		"/admin":     true,
+		"/games/new": true,
 	}
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
@@ -32,6 +34,10 @@ func init() {
 	http.HandleFunc("/admin", func(w http.ResponseWriter, r *http.Request) {
 		routes["/admin"] = true
 		AppHandler(w, r, Admin)
+	})
+	http.HandleFunc("/games/new", func(w http.ResponseWriter, r *http.Request) {
+		routes["/games/new"] = true
+		AppHandler(w, r, games.NewGame)
 	})
 
 }

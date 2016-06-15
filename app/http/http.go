@@ -30,7 +30,6 @@ func Help(wr srv.WrapperRequest, tc map[string]interface{}) (string, error) {
 }
 
 func Welcome(wr srv.WrapperRequest, tc map[string]interface{}) (string, error) {
-	// HTML Response
 	return baseTmpl, nil
 }
 
