@@ -18,6 +18,7 @@ func init() {
 		"/logout":    true,
 		"/admin":     true,
 		"/games/new": true,
+		"/games/add": true,
 	}
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
@@ -37,7 +38,10 @@ func init() {
 	})
 	http.HandleFunc("/games/new", func(w http.ResponseWriter, r *http.Request) {
 		routes["/games/new"] = true
-		AppHandler(w, r, games.NewGame)
+		AppHandler(w, r, games.NewGameHandler)
 	})
-
+	http.HandleFunc("/games/add", func(w http.ResponseWriter, r *http.Request) {
+		routes["/games/add"] = true
+		AppHandler(w, r, games.SaveGameHandler)
+	})
 }
