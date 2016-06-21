@@ -7,7 +7,7 @@
 
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
     <link rel="stylesheet" type="text/css" href="/css/chessboard-0.3.0.css"/>
-    <link href="/css/landing-page.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/css/landing-page.css" >
     <link rel="stylesheet" type="text/css" href="/css/custom.css"/>
     
   </head>
@@ -42,25 +42,58 @@
 
 
     <div class="content container">
-      Visualizado la partida {{.Content.Title}}
-    </div>
 
-    <!--  
+      <input type="hidden" name="pgnText" id="pgnText" value="{{.Content.PGNText}}">
+
+      <!-- board  -->
+      <div class="row col-md-7">
+	<div class="boardpanel" id="board1"></div>
+      </div>
+
+      <!-- controls  -->
+      <div class="boardpanel row col-md-5">
+
+	<div class="form-group">
+	  <button class="btn" id="prevButton">
+	    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+	  </button>
+	  <button class="btn" id="resetButton">
+	    <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>
+	  </button>
+	  <button  class="btn" id="nextButton">
+	    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+	  </button>
+	</div>
+      </div>
+
+    </div>
+    
     <script src="/js/jquery-2.2.4.min.js"></script>
+    <script type="text/javascript" src="/js/chessboard-0.3.0.js"></script>
+    <script type="text/javascript" src="/js/chess.js"></script>
     <script type="text/javascript" src="/js/chessgame.js"></script>
     <script type="text/javascript">
      chessgame.init()
 
+     var pgn = document.getElementById("pgnText")
+     chessgame.load(pgn.value)
+     
+
      document.getElementById("prevButton").addEventListener("click",chessgame.prev)
      document.getElementById("nextButton").addEventListener("click",chessgame.next)
      document.getElementById("resetButton").addEventListener("click",chessgame.reset)
+
+     /*     
+
      document.getElementById("sendButton").addEventListener("click",function(){
-       var pgn = document.getElementById("pgnText")
-       chessgame.load(pgn.value)
+     var pgn = document.getElementById("pgnText")
+     chessgame.load(pgn.value)
      })
 
+     */
+
     </script>
--->
+
   </body>
 </html>
 

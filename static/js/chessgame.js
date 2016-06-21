@@ -59,7 +59,7 @@ var chessgame = (function(){
 	var headersRe=/\[.*\]/g
 	pgn = pgn.replace(headersRe,"")
 
-	alert(pgn)
+	//alert(pgn)
 
 	var ok = game.load_pgn(pgn,{sloppy: true});
 	if (!ok){
