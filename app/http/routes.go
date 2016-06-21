@@ -3,29 +3,33 @@ package http
 import (
 	"model/games"
 	"net/http"
-	"text/template"
 )
 
 var routes map[string]bool
 
 var directRoutes map[string]bool
+var publicRoutes map[string]bool
 
 func init() {
 	routes = make(map[string]bool)
 
 	directRoutes = map[string]bool{
-		"/":          true,
-		"/logout":    true,
-		"/admin":     true,
-		"/games/new": true,
-		"/games/add": true,
+		"/":           true,
+		"/logout":     true,
+		"/admin":      true,
+		"/games/new":  true,
+		"/games/add":  true,
+		"/games/view": true,
+	}
+
+	publicRoutes = map[string]bool{
+		"/":           true,
+		"/games/view": true,
 	}
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		routes["/"] = true
-		w.Header().Set("Content-Type", "text/html;charset=utf-8")
-		tmpl := template.Must(template.ParseFiles(baseTmpl))
-		tmpl.Execute(w, nil)
+		AppHandler(w, r, Welcome)
 	})
 
 	http.HandleFunc("/help", func(w http.ResponseWriter, r *http.Request) {
@@ -43,5 +47,9 @@ func init() {
 	http.HandleFunc("/games/add", func(w http.ResponseWriter, r *http.Request) {
 		routes["/games/add"] = true
 		AppHandler(w, r, games.SaveGameHandler)
+	})
+	http.HandleFunc("/games/view", func(w http.ResponseWriter, r *http.Request) {
+		routes["/games/view"] = true
+		AppHandler(w, r, games.GetGameHandler)
 	})
 }

@@ -28,10 +28,13 @@ type WrapperHandler func(wr srv.WrapperRequest, tc map[string]interface{}) (stri
 
 func AppHandler(w http.ResponseWriter, r *http.Request, whandler WrapperHandler) {
 	wr := srv.NewWrapperRequest(w, r)
-	err := getCurrentUser(&wr)
-	if err != nil {
-		RedirectToLogin(w, wr.R)
-		return
+
+	if !publicRoutes[wr.R.URL.Path] {
+		err := getCurrentUser(&wr)
+		if err != nil {
+			RedirectToLogin(w, wr.R)
+			return
+		}
 	}
 
 	// Check if path exists in routes
@@ -96,7 +99,7 @@ func errorResponse(wr srv.WrapperRequest, w http.ResponseWriter, err error) {
 		fmt.Fprintf(w, "%s", string(jbody[:len(jbody)]))
 	} else {
 		// HTML Response
-		errorTmpl := template.Must(template.ParseFiles("app/tmpl/error.html"))
+		errorTmpl := template.Must(template.ParseFiles("static/html/error.html"))
 		if err := errorTmpl.Execute(w, err.Error()); err != nil {
 			wr.C.Errorf("%v", err)
 			return

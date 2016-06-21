@@ -91,3 +91,14 @@ func GetByUrl(wr srv.WrapperRequest, url string) (*Game, error) {
 
 	return gm, nil
 }
+
+func GetById(wr srv.WrapperRequest, id int64) (*Game, error) {
+	gm := new(Game)
+	gm.Id = id
+	q := data.NewConn(wr, "games")
+	err := q.Get(gm)
+	if err != nil {
+		return nil, fmt.Errorf("getbyid: %v", err)
+	}
+	return gm, nil
+}
