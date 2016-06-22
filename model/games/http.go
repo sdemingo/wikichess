@@ -60,6 +60,7 @@ func GetGameHandler(wr srv.WrapperRequest, tc map[string]interface{}) (string, e
 	}
 
 	tc["Content"] = game
+	tc["Headers"] = game.GetHeaders()
 
 	return viewTmpl, nil
 }

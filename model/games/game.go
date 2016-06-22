@@ -1,6 +1,8 @@
 package games
 
 import (
+	"strings"
+
 	"appengine/data"
 	"appengine/srv"
 
@@ -46,6 +48,21 @@ func (n *Game) ID() int64 {
 
 func (n *Game) SetID(id int64) {
 	n.Id = id
+}
+
+func (n *Game) GetHeaders() map[string]string {
+	headersMap := make(map[string]string)
+	h := strings.Split(n.PGNText, "]")
+	for i := range h {
+		headers := strings.Replace(h[i], "[", "", -1)
+		values := strings.Split(headers, " \"")
+		if len(values) > 1 {
+			key := values[0]
+			value := strings.Trim(values[1], "\"")
+			headersMap[key] = value
+		}
+	}
+	return headersMap
 }
 
 type GameBuffer []*Game

@@ -6,7 +6,7 @@
     <meta http-equiv="content-type" content="text/html;charset=utf-8" />
 
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
-    <link rel="stylesheet" type="text/css" href="/css/chessboard-0.3.0.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/chessboard-0.3.0.min.css"/>
     <link rel="stylesheet" type="text/css" href="/css/landing-page.css" >
     <link rel="stylesheet" type="text/css" href="/css/custom.css"/>
     
@@ -41,17 +41,25 @@
     </nav>
 
 
-    <div class="content container">
+    <div class="content container" id="game">
+
+      <h1>{{.Content.Title}}</h1>
 
       <input type="hidden" name="pgnText" id="pgnText" value="{{.Content.PGNText}}">
 
       <!-- board  -->
-      <div class="row col-md-7">
-	<div class="boardpanel" id="board1"></div>
+      <div class="row col-md-6">
+	<div class="boardpanel" id="board"></div>
       </div>
 
       <!-- controls  -->
-      <div class="boardpanel row col-md-5">
+      <div class="boardpanel row col-md-4">
+
+	<ul class="list-group" id="headers">
+	  {{range $index, $element := .Headers}}
+	  <li class="list-group-item">{{$index}}: {{$element}}</li>
+          {{end}}
+	</ul>
 
 	<div class="form-group">
 	  <button class="btn" id="prevButton">
@@ -70,7 +78,7 @@
     
     <script src="/js/jquery-2.2.4.min.js"></script>
     <script type="text/javascript" src="/js/chessboard-0.3.0.js"></script>
-    <script type="text/javascript" src="/js/chess.js"></script>
+    <script type="text/javascript" src="/js/chess.min.js"></script>
     <script type="text/javascript" src="/js/chessgame.js"></script>
     <script type="text/javascript">
      chessgame.init()
@@ -90,7 +98,7 @@
      chessgame.load(pgn.value)
      })
 
-     */
+      */
 
     </script>
 
